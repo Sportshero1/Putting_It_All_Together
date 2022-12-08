@@ -22,8 +22,7 @@ def ttt_board():
     print(a)
     print(row[6],' |', row[7],' |',row[8])
 
-ttt_board()
-
+# Give options for the players to choose positions for their marks
 def mark_choice(choice, marker):
     print()
     player1, player2 = choice
@@ -34,7 +33,7 @@ def mark_choice(choice, marker):
         p = 0
         print(f'This is turn: {i}')
         while j not in row:
-            j = input("Player-1: Select position (1-9) for your mark: ")
+            j = input("Player 1: Select the position (1-9) for your mark: ")
             if j not in row:
                 print("That is an invalid choice. Please try again")
             else:
@@ -54,7 +53,7 @@ def mark_choice(choice, marker):
             break
 
         while p not in row:
-            p = input("Player-1: Select position (1-9) for your mark: ")
+            p = input("Player 2: Select the position (1-9) for your mark: ")
             if p not in row:
                 print("That is an invalid choice. Please try again")
             else:
@@ -74,11 +73,11 @@ def mark_choice(choice, marker):
             break     
     return marker 
 
-mark_choice()
-
+# Giving options for how players will win
 def game_winner(choice,user_marks):
     player1, player2 = choice
     m = 0
+    # Player1 options for winning
     if user_marks[0] == user_marks[1] == user_marks[2] == player1:
         m = 1
         return m
@@ -103,6 +102,7 @@ def game_winner(choice,user_marks):
     elif user_marks[2] == user_marks[4] == user_marks[6] == player1:
         m = 1
         return m
+    # Player2 options for winning
     elif user_marks[0] == user_marks[1] == user_marks[2] == player2:
         m = 2
         return m
@@ -170,5 +170,21 @@ def player_choice():
     print(f'Mark for Player 1 is: {player1} and Mark for Player 2 is: {player2}')
     return player1, player2
 
-# player_choice()
+def play_the_game():
+    ttt_board()
+    pc = player_choice()
+    new_board = mark_choice(pc)
+    tie = game_winner(pc, new_board)
+    if tie == 3:
+        print("That's a Cats Game. You tied!")
 
+    print('Would you like to play Tic Tac Toe again?! ')
+    tttpa = input("Y or N? ")
+    tttpa = tttpa.upper()
+    if tttpa == 'Y':
+        play_the_game()
+    else:
+        print("Thanks for playing!")
+        pass
+
+play_the_game()
